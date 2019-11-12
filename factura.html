@@ -12,38 +12,65 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
-<body>
-    <nav class="blue" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tienda APP</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Enviar reporte total de compras</a></li>
-            </ul>
-
-            <ul id="nav-mobile" class="sidenav">
-                <li><a href="#">Enviar reporte total de compras</a></li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<body class="full-height">
+    <nav class="indigo darken-3">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo ">Tienda APP</a>
         </div>
     </nav>
-    <div class="section no-pad-bot" id="index-banner" align="center">
+    <div class="section grey lighten-4" align="center">
         <div class="container">
-            <img src="images/logo.jpeg" width="318" height="87">
-            <br/><br/>
-            <a href="factura.html" id="download-button" class="btn-large waves-effect waves-light orange">
-                    Comprar
-            </a>
+            <form>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Nombre" id="nombre" class="validate">
+                        <label for="nombre">Nombre</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Documento" id="documento" class="validate">
+                        <label for="documento">Documento</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" disabled placeholder="Producto" id="producto" class="validate">
+                        <label for="producto">Producto</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Subtotal" id="subtotal" class="validate">
+                        <label for="subtotal">Subtotal</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Total" id="total" class="validate">
+                        <label for="total">Total</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <a href="index.html" class="left waves-effect waves-light red lighten-1 btn"> Salir </a>
+                        <!-- Modal Trigger -->
+                        <button data-target="modal2" class="right waves-effect waves-light teal lighten-1 btn modal-trigger">
+                            Comprar
+                        </button>
+                        <!-- Modal Structure -->
+                        <div id="modal2" class="modal">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h5>Ponga su huella por favor:</h5>
+                                        <div class="input-field inline">
+                                            <input type="text" placeholder="Huella dactilar" id="huella">
+                                        </div>
+                                        <a href="finalizaCompra.html" class="modal-close waves-effect waves-blue btn-flat">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <br><br>
-
     </div>
-    </div>
-
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
-
+    <script src="js/factura.js"></script>
 </body>
 
 </html>

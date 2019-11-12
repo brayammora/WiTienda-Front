@@ -1,18 +1,28 @@
 (function($) {
+
+    //sidenav
     $(function() {
-
         $('.sidenav').sidenav();
+    });
 
-    }); // end of document ready
-})(jQuery); // end of jQuery name space
+    //modal
+    $(document).ready(function() {
+        $('.modal').modal();
+    });
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems, options);
-});
+    //validando huella
+    $("#validarHuella").on("click", validarHuella);
 
-// Or with jQuery
+    function validarHuella() {
+        $.ajax({
+            url: 'http://localhost:8888/proyectos/WiediiTienda/public/usuarios',
+            success: function(respuesta) {
+                console.log(respuesta);
+            },
+            error: function() {
+                console.log("No se ha podido obtener la información");
+            }
+        });
+    }
 
-$(document).ready(function() {
-    $('.modal').modal();
-});
+})(jQuery);
