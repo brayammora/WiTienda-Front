@@ -22,25 +22,20 @@
       data: { "huella" : huella },
       dataType: "json",
       success: function(respuesta) {
-        switch (respuesta.mensaje) {
-          case "denegado":
-            alert("Huella vacia: Acceso no autorizado.");
-            break;
-          case "inexistente":
-            alert("No existen ningún usuario con esa huella.");
-            break;
-          default:
-            var datos = JSON.parse(respuesta.mensaje);
+        datos = respuesta.result;
+        if(datos != null ){
             $.each(datos, function(index, elemento) {
-              $("#nombre").val(elemento.nombre);
-              $("#documento").val(elemento.cedula);
-              $("#login").hide();
-              $("#factura").show();
+                $("#nombre").val(elemento.nombre);
+                $("#documento").val(elemento.cedula);
+                $("#login").hide();
+                $("#factura").show();
             });
+        }else{
+            alert(respuesta.message);
         }
       },
       error: function() {
-        alert(respuesta.mensaje);
+        alert("Ocurrió un error con la aplicación.");
       }
     });
   }
@@ -49,7 +44,17 @@
   $("#salir").on("click", salir);
 
   function salir() {
-    $("#login").show();
-    $("#factura").hide();
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8888/proyectos/WiediiTienda/public/logout",
+      dataType: "json",
+      success: function(respuesta) {
+        $("#login").show();
+        $("#factura").hide();
+      },
+      error: function() {
+        alert("Ocurrió un error con la aplicación.");
+      }
+    });
   }
 })(jQuery);
