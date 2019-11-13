@@ -10,9 +10,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="imagenes/favicon.png" type="image/png" />
 </head>
 
 <body class="full-height">
+
     <nav class="indigo darken-3" role="navigation">
         <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo ">Tienda APP</a>
             <ul class="right hide-on-med-and-down">
@@ -27,7 +29,9 @@
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
     </nav>
-    <div class="section grey lighten-4" align="center">
+
+    <!-- :::::::::::::::::::: VISTA LOGIN :::::::::::::::::::: -->
+    <div class="section grey lighten-4" align="center" id="login">
         <div class="container">
             <div class="row">
                 <img src="images/logo.svg" width="50%" height="50%">
@@ -40,11 +44,70 @@
                     </div>
                 </div>
                 <div class="col s12">
-                    <a href="index.html" class="waves-effect waves-light blue lighten-1 btn"> Comprar </a>
+                    <button class="waves-effect waves-light blue lighten-1 btn" id="validarHuella"> Comprar </button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- :::::::::::::::::::: FIN VISTA LOGIN :::::::::::::::::::: -->
+
+
+
+    <!-- :::::::::::::::::::: VISTA FACTURA :::::::::::::::::::: -->
+    <div class="section grey lighten-4" align="center" id="factura">
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Nombre" id="nombre" class="validate">
+                        <label for="nombre">Nombre</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Documento" id="documento" class="validate">
+                        <label for="documento">Documento</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" disabled placeholder="Producto" id="producto" class="validate">
+                        <label for="producto">Producto</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Subtotal" id="subtotal" class="validate">
+                        <label for="subtotal">Subtotal</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" disabled placeholder="Total" id="total" class="validate">
+                        <label for="total">Total</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <button class=" left waves-effect waves-light red lighten-1 btn" id="salir"> Salir </button>
+                        <!-- Modal Trigger -->
+                        <button data-target="modal2" 
+                        class="right waves-effect waves-light teal lighten-1 btn modal-trigger">
+                            Comprar
+                        </button>
+                        <!-- Modal Structure -->
+                        <div id="modal2" class="modal">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h5>Ponga su huella por favor:</h5>
+                                        <div class="input-field inline">
+                                            <input type="text" placeholder="Huella dactilar" id="huella">
+                                        </div>
+                                        <button class=" modal-close waves-effect waves-blue btn-flat" id="comprar"> 
+                                           Ir 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- :::::::::::::::::::: FIN VISTA FACTURA :::::::::::::::::::: -->
+
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
