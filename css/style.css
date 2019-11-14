@@ -8,20 +8,9 @@
  * Made By MaterializeCSS.com
  */
 
-.icon-block {
-    padding: 0 15px;
-}
-
-.icon-block .material-icons {
-    font-size: inherit;
-}
-
-.full-height {
-    height: 100%;
+.full-tam {
+    height: 100vh;
+    width: 100%;
     min-height: 320px;
+    min-width: 480px;
 }
-
-
-/* html {
-    overflow-y: hidden;
-} */

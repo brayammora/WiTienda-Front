@@ -18,20 +18,20 @@
     var huella = $("#huella").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiTienda/public/login",
-      data: { "huella" : huella },
+      url: "http://localhost:8888/proyectos/WiediiTienda/public/user/login",
+      data: { "huella": huella },
       dataType: "json",
       success: function(respuesta) {
         datos = respuesta.result;
-        if(datos != null ){
-            $.each(datos, function(index, elemento) {
-                $("#nombre").val(elemento.nombre);
-                $("#documento").val(elemento.cedula);
-                $("#login").hide();
-                $("#factura").show();
-            });
-        }else{
-            alert(respuesta.message);
+        if (datos != null) {
+          $.each(datos, function(index, elemento) {
+            $("#nombre").val(elemento.nombre);
+            $("#documento").val(elemento.cedula);
+            $("#login").hide();
+            $("#factura").show();
+          });
+        } else {
+          alert(respuesta.message);
         }
       },
       error: function() {
@@ -46,7 +46,7 @@
   function salir() {
     $.ajax({
       type: "GET",
-      url: "http://localhost:8888/proyectos/WiediiTienda/public/logout",
+      url: "http://localhost:8888/proyectos/WiediiTienda/public/user/logout",
       dataType: "json",
       success: function(respuesta) {
         $("#login").show();
