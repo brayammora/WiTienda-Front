@@ -1,60 +1,144 @@
-(function($) {
-  $("#factura").hide();
+(function ($) {
+
+  $("#purchase").hide();
 
   //sidenav
-  $(function() {
+  $(function () {
     $(".sidenav").sidenav();
   });
 
   //modal
-  $(document).ready(function() {
+  $(document).ready(function () {
     $(".modal").modal();
   });
 
-  //validando huella
-  $("#validarHuella").on("click", validarHuella);
 
-  function validarHuella() {
-    var huella = $("#huella").val();
+  var purchase = [];
+  var total = 0;
+
+  //validando huella
+  $("#validateFinger").on("click", validateFinger);
+
+  function validateFinger() {
+    var finger = $("#fingerInit").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiTienda/public/user/login",
-      data: { "huella": huella },
+      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      data: { "finger": finger },
       dataType: "json",
-      success: function(respuesta) {
-        datos = respuesta.result;
-        if (datos != null) {
-          $.each(datos, function(index, elemento) {
-            $("#nombre").val(elemento.nombre);
-            $("#documento").val(elemento.cedula);
+      success: function (response) {
+        dataUser = response.result;
+        if (dataUser != null) {
+          storeData(dataUser, 'user');
+          $.each(dataUser, function (index, element) {
+            $("#name").val(element.name);
+            $("#document").val(element.document);
             $("#login").hide();
-            $("#factura").show();
+            $("#purchase").show();
           });
         } else {
-          alert(respuesta.message);
+          alert(response.message);
         }
       },
-      error: function() {
-        alert("Ocurrió un error con la aplicación.");
+      error: function () {
+        alert("An unexpected error occurred.");
       }
     });
   }
 
-  //boton salir
-  $("#salir").on("click", salir);
+  function storeData(data, type) {
 
-  function salir() {
+    switch (type) {
+      case 'user':
+        $.each(data, function (index, element) {
+          purchase['idUser'] = element.idUser;
+          purchase['name'] = element.name;
+          purchase['documentUser'] = element.document;
+          purchase['mail'] = element.mail;
+        });
+        break;
+      case 'product':
+        var product = [];
+        $.each(data, function (index, element) {
+          product['idProduct'] = element.idProduct;
+          product['name'] = element.name;
+          product['price'] = element.price;
+          product['barcode'] = element.barcode;
+          purchase.push(product);
+        });
+        break;
+    }
+  }
+
+  //boton salir
+  $("#logout").on("click", logout);
+
+  function logout() {
     $.ajax({
-      type: "GET",
-      url: "http://localhost:8888/proyectos/WiediiTienda/public/user/logout",
+      type: "POST",
+      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
       dataType: "json",
-      success: function(respuesta) {
+      success: function (response) {
         $("#login").show();
-        $("#factura").hide();
+        $("#purchase").hide();
+        $("#fingerInit").val("");
+        $("#name").val("");
+        $("#document").val("");
+        $("#barcode").val("");
+        $("#product").val("");
+        $("#subtotal").val("");
+        $("#total").val("");
+        purchase = [];
+        total = 0;
       },
-      error: function() {
-        alert("Ocurrió un error con la aplicación.");
+      error: function () {
+        alert("An unexpected error occurred.");
       }
     });
+  }
+
+  //enviar email
+  $("#sendMail1").on("click", sendMail);
+  $("#sendMail2").on("click", sendMail);
+
+  function sendMail() {
+    if (purchase.lenght > 0 || purchase['mail'] == null) {
+      alert("Ponga su huella para continuar");
+    } else {
+      alert(purchase['mail']);
+    }
+  }
+
+  //leer codigo de barras
+  $("#barcode").on("keyup", readBarcode);
+
+  function readBarcode() {
+
+    var barcode = $("#barcode").val();
+    if (barcode != '') {
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcode,
+        dataType: "json",
+        success: function (response) {
+          dataProduct = response.result;
+          if (dataProduct != null) {
+            $.each(dataProduct, function (index, element) {
+              $("#product").val(element.name);
+              $("#subtotal").val(element.price);
+              total = parseInt(total) + parseInt(element.price);
+              $("#total").val(total);
+              storeData(dataProduct, 'product');
+            });
+          } else {
+            $("#product").val("");
+            $("#subtotal").val("");
+          }
+        },
+        error: function () {
+          alert("An unexpected error occurred.");
+        }
+      });
+    }
   }
 })(jQuery);

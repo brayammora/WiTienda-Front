@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Wiedii Tienda</title>
+  <title>Wiedii Shop</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -17,13 +17,19 @@
 
   <nav class="indigo darken-3" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Tienda APP</a>
+      <a id="logo-container" href="#" class="brand-logo">Wiedii Shop</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Enviar reporte de compras</a></li>
+        <li><a class="waves-effect" href="#" id="sendMail1">
+            <i class="material-icons left">mail</i>
+            Get my purchases</a>
+        </li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
-        <li><a class="waves-effect" href="#">Enviar reporte de compras</a></li>
+        <li><a class="waves-effect" href="#" id="sendMail2">
+            <i class="material-icons left">mail</i>
+            Get my purchases</a>
+        </li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger">
         <i class="material-icons">menu</i>
@@ -31,48 +37,46 @@
     </div>
   </nav>
 
-  <!-- :::::::::::::::::::: VISTA LOGIN :::::::::::::::::::: -->
+  <!-- :::::::::::::::::::: VIEW Login :::::::::::::::::::: -->
   <div class="section grey lighten-4" align="center" id="login">
     <div class="container">
       <div class="row">
         <img src="images/logo.svg" width="50%" height="50%" />
-      </div>
-      <div class="row">
         <div class="col s12">
           <div class="input-field inline">
-            <input type="text" placeholder="Huella dactilar" id="huella" />
-            <label for="huella">Ponga su huella:</label>
+            <input type="text" placeholder="Fingerprint" id="fingerInit" />
+            <label for="fingerInit">Put your fingerprint:</label>
           </div>
         </div>
         <div class="col s12">
-          <button class="waves-effect waves-light blue lighten-1 btn" id="validarHuella">
-            Comprar
+          <button class="waves-effect waves-light blue lighten-1 btn" id="validateFinger">
+            Go to Buy!
           </button>
         </div>
       </div>
     </div>
   </div>
-  <!-- :::::::::::::::::::: FIN VISTA LOGIN :::::::::::::::::::: -->
+  <!-- :::::::::::::::::::: VIEW END Login :::::::::::::::::::: -->
 
-  <!-- :::::::::::::::::::: VISTA FACTURA :::::::::::::::::::: -->
-  <div class="section grey lighten-4" align="center" id="factura">
+  <!-- :::::::::::::::::::: VIEW Purchase :::::::::::::::::::: -->
+  <div class="section grey lighten-4" align="center" id="purchase">
     <div class="container">
       <div class="row">
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Nombre" id="nombre" class="validate" />
-          <label for="nombre">Nombre</label>
+          <input type="text" disabled placeholder="Name" id="name" class="validate" />
+          <label for="name">Name</label>
         </div>
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Documento" id="documento" class="validate" />
-          <label for="documento">Documento</label>
+          <input type="text" disabled placeholder="Document" id="document" class="validate" />
+          <label for="document">Document</label>
         </div>
         <div class="input-field col s6">
-          <input type="text" placeholder="Codigo de barras" id="codigoBarras" class="validate" />
-          <label for="codigoBarras">Codigo de barras</label>
+          <input type="text" placeholder="Barcode" id="barcode" class="validate" />
+          <label for="barcode">Barcode</label>
         </div>
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Producto" id="producto" class="validate" />
-          <label for="producto">Producto</label>
+          <input type="text" disabled placeholder="Product" id="product" class="validate" />
+          <label for="product">Product</label>
         </div>
         <div class="input-field col s6">
           <input type="number" disabled placeholder="Subtotal" id="subtotal" class="validate" />
@@ -83,24 +87,24 @@
           <label for="total">Total</label>
         </div>
         <div class="input-field col s12">
-          <button class=" left waves-effect waves-light red lighten-1 btn" id="salir">
-            Salir
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logout">
+            Exit
           </button>
           <!-- Modal Trigger -->
           <button data-target="modal2" class="right waves-effect waves-light teal lighten-1 btn modal-trigger">
-            Comprar
+            Purchase
           </button>
           <!-- Modal Structure -->
           <div id="modal2" class="modal">
             <div class="modal-content">
               <div class="row">
                 <div class="col s12">
-                  <h5>Ponga su huella por favor:</h5>
+                  <h5>Put your fingerprint:</h5>
                   <div class="input-field inline">
                     <input type="text" placeholder="Huella dactilar" id="huella" />
                   </div>
                   <button class=" modal-close waves-effect waves-blue btn-flat" id="comprar">
-                    Ir
+                    Buy
                   </button>
                 </div>
               </div>
@@ -110,11 +114,11 @@
       </div>
     </div>
   </div>
-  <!-- :::::::::::::::::::: FIN VISTA FACTURA :::::::::::::::::::: -->
+  <!-- :::::::::::::::::::: VIEW END Purchase :::::::::::::::::::: -->
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/materialize.min.js"></script>
   <script src="js/init.js"></script>
 </body>
 
