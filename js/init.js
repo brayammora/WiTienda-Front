@@ -13,7 +13,8 @@
   });
 
 
-  var purchase = [];
+  var products = [];
+  var user = {};
   var total = 0;
 
   //validando huella
@@ -51,20 +52,20 @@
     switch (type) {
       case 'user':
         $.each(data, function (index, element) {
-          purchase['idUser'] = element.idUser;
-          purchase['name'] = element.name;
-          purchase['documentUser'] = element.document;
-          purchase['mail'] = element.mail;
+          user['idUser'] = element.idUser;
+          user['name'] = element.name;
+          user['documentUser'] = element.document;
+          user['mail'] = element.mail;
         });
         break;
       case 'product':
-        var product = [];
+        var product = {};
         $.each(data, function (index, element) {
           product['idProduct'] = element.idProduct;
           product['name'] = element.name;
           product['price'] = element.price;
           product['barcode'] = element.barcode;
-          purchase.push(product);
+          products.push(product);
         });
         break;
     }
@@ -88,7 +89,8 @@
         $("#product").val("");
         $("#subtotal").val("");
         $("#total").val("");
-        purchase = [];
+        products = [];
+        user = {};
         total = 0;
       },
       error: function () {
@@ -97,24 +99,12 @@
     });
   }
 
-  //enviar email
-  $("#sendMail1").on("click", sendMail);
-  $("#sendMail2").on("click", sendMail);
-
-  function sendMail() {
-    if (purchase.lenght > 0 || purchase['mail'] == null) {
-      alert("Ponga su huella para continuar");
-    } else {
-      alert(purchase['mail']);
-    }
-  }
-
   //leer codigo de barras
   $("#barcode").on("keyup", readBarcode);
 
   function readBarcode() {
 
-    var barcode = $("#barcode").val();
+    var barcode = $("#barcode").val().trim();
     if (barcode != '') {
       $.ajax({
         type: "GET",
@@ -141,4 +131,52 @@
       });
     }
   }
+
+  //confirmar compra
+  $("#buy").on("click", confirmPurchase);
+
+  function confirmPurchase() {
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/save",
+      data: { "user": user['idUser'], "products": products },
+      dataType: "json",
+      success: function (response) {
+        alert(response.message);
+      },
+      error: function () {
+        alert("An unexpected error occurred.");
+      }
+    });
+
+    sendMail();
+    logout();
+  }
+
+  //enviar email
+  $("#sendMail1").on("click", sendMail);
+  $("#sendMail2").on("click", sendMail);
+
+  function sendMail() {
+    if (user.lenght > 0 || user['mail'] == null) {
+      alert("Ponga su huella para continuar");
+    } else {
+      alert(user['mail']);
+      console.log(user);
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/sendMail",
+        data: user,
+        dataType: "json",
+        success: function (response) {
+          console.log(response);
+        },
+        error: function () {
+          alert("An unexpected error occurred.");
+        }
+      });
+    }
+  }
+
 })(jQuery);
