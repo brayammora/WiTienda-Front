@@ -1,6 +1,5 @@
 /* Custom Stylesheet */
 
-
 /**
  * Use this file to override Materialize files so you can update
  * the core Materialize files in the future
@@ -8,9 +7,40 @@
  * Made By MaterializeCSS.com
  */
 
+html {
+  overflow: hidden;
+}
+
 .full-tam {
-    height: 100vh;
-    width: 100%;
-    min-height: 325px;
-    min-width: 485px;
+  height: 90vh;
+  width: 100%;
+  min-height: 263px;
+  min-width: 408px;
+}
+
+
+nav {
+  height: 30px;
+  line-height: 30px;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+  height: 30px;
+  line-height: 30px;
+}
+
+nav .button-collapse i {
+  height: 30px;
+  line-height: 30px;
+}
+
+nav .brand-logo { 
+  font-size: 1.6rem; 
+}
+
+@media only screen and (min-width: 601px){
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+      height: 30px;
+      line-height: 30px;
+  }
 }

@@ -3,55 +3,36 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Wiedii Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <title>Wiedii Tienda</title>
 
   <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen" />
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen" />
   <link rel="icon" href="images/favicon.png" type="image/png" />
 </head>
 
-<body class="full-tam">
+<body class="full-tam grey lighten-4">
 
-  <nav class="indigo darken-3" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Wiedii Shop</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="waves-effect" href="#" id="sendMail1">
-            <i class="material-icons left">mail</i>
-            Get my purchases</a>
-        </li>
+  <nav>
+    <div class="nav-wrapper indigo darken-3" style="text-align: center;">
+      <a href="#" class="right brand-logo" id="logo">Wiedii Tienda</a>
+      <ul id="nav-mobile" class="left">
+        <li><a href="#" class="waves-effect" id="goReturns">Devoluciones</a></li>
+        <li class="flow-text"><a href="#" class="waves-effect" id="name"></a></li>
       </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a class="waves-effect" href="#" id="sendMail2">
-            <i class="material-icons left">mail</i>
-            Get my purchases</a>
-        </li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger">
-        <i class="material-icons">menu</i>
-      </a>
     </div>
   </nav>
 
   <!-- :::::::::::::::::::: VIEW Login :::::::::::::::::::: -->
-  <div class="section grey lighten-4" align="center" id="login">
-    <div class="container">
+  <div class="section" align="center" id="login">
+    <div class="container col s12">
       <div class="row">
-        <img src="images/logo.svg" width="50%" height="50%" />
-        <div class="col s12">
-          <div class="input-field inline">
-            <input type="text" placeholder="Fingerprint" id="fingerInit" />
-            <label for="fingerInit">Put your fingerprint:</label>
-          </div>
-        </div>
-        <div class="col s12">
-          <button class="waves-effect waves-light blue lighten-1 btn" id="validateFinger">
-            Go to Buy!
-          </button>
+        <img src="images/logo.svg" width="60%" height="60%" />
+        <br><br>
+        <div class="input-field inline">
+          <input type="text" placeholder="Huella" id="fingerInit" />
+          <label for="fingerInit">¡A COMPRAR!</label>
         </div>
       </div>
     </div>
@@ -59,62 +40,70 @@
   <!-- :::::::::::::::::::: VIEW END Login :::::::::::::::::::: -->
 
   <!-- :::::::::::::::::::: VIEW Purchase :::::::::::::::::::: -->
-  <div class="section grey lighten-4" align="center" id="purchase">
+  <div class="section" align="center" id="purchase">
     <div class="container">
       <div class="row">
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Name" id="name" class="validate" />
-          <label for="name">Name</label>
+          <input type="text" placeholder="Codigo" id="barcode" class="validate" />
+          <label for="barcode">CODIGO</label>
         </div>
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Document" id="document" class="validate" />
-          <label for="document">Document</label>
-        </div>
-        <div class="input-field col s6">
-          <input type="text" placeholder="Barcode" id="barcode" class="validate" />
-          <label for="barcode">Barcode</label>
-        </div>
-        <div class="input-field col s6">
-          <input type="text" disabled placeholder="Product" id="product" class="validate" />
-          <label for="product">Product</label>
+          <input type="text" disabled placeholder="Producto" id="product" class="validate" />
+          <label for="product">PRODUCTO</label>
         </div>
         <div class="input-field col s6">
           <input type="number" disabled placeholder="Subtotal" id="subtotal" class="validate" />
-          <label for="subtotal">Subtotal</label>
+          <label for="subtotal">SUBTOTAL</label>
         </div>
         <div class="input-field col s6">
           <input type="number" disabled placeholder="Total" id="total" class="validate" />
-          <label for="total">Total</label>
+          <label for="total">TOTAL</label>
         </div>
         <div class="input-field col s12">
           <button class=" left waves-effect waves-light red lighten-1 btn" id="logout">
-            Exit
+            SALIR
           </button>
-          <!-- Modal Trigger -->
-          <button data-target="modal2" class="right waves-effect waves-light teal lighten-1 btn modal-trigger">
-            Purchase
+          <button class="right waves-effect waves-light teal lighten-1 btn" id="buy">
+            COMPRAR
           </button>
-          <!-- Modal Structure -->
-          <div id="modal2" class="modal">
-            <div class="modal-content">
-              <div class="row">
-                <div class="col s12">
-                  <h5>Put your fingerprint:</h5>
-                  <div class="input-field inline">
-                    <input type="text" placeholder="Fingerprint" id="huella" />
-                  </div>
-                  <button class=" modal-close waves-effect waves-blue btn-flat" id="buy">
-                    Buy
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
   <!-- :::::::::::::::::::: VIEW END Purchase :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Returns :::::::::::::::::::: -->
+  <div class="section" align="center" id="returns">
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="text" placeholder="Codigo" id="barcodeReturn" class="validate" />
+            <label for="barcode">CÓDIGO</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="text" disabled placeholder="Producto" id="productReturn" class="validate" />
+            <label for="product">PRODUCTO</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="text" disabled placeholder="Dueño" id="owner" class="validate" />
+            <label for="owner">DUEÑO</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="text" disabled placeholder="Fecha de Compra" id="datePurchased" class="validate" />
+            <label for="total">FECHA DE COMPRA</label>
+          </div>
+          <div class="input-field col s12">
+            <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutReturn">
+              SALIR
+            </button>
+            <button class="right waves-effect waves-light teal lighten-1 btn" id="buyReturn">
+              DEVOLVER
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- :::::::::::::::::::: VIEW END Returns :::::::::::::::::::: -->
 
   <!--  Scripts-->
   <script src="js/jquery.min.js"></script>
