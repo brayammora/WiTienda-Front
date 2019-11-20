@@ -2,6 +2,7 @@
 
   $("#purchase").hide();
   $("#returns").hide();
+  $("#survey").hide();
 
   //mantener el focus de la huella al empezar
   $("#fingerInit").focus();
@@ -11,15 +12,24 @@
     }
   });
 
-  //mantener el focus del lector de codigo de barras
+  //mantener el focus del lector de codigo de barras en una compra
   $("#barcode").blur(function () {
     if ($('#purchase').is(':visible')) {
       $("#barcode").focus();
     }
   });
+
+  //mantener el focus del lector de codigo de barras en una devolucion
   $("#barcodeReturn").blur(function () {
-    if ($('#returns').is(':visible')) {
+    if ($('#returns').is(':visible') && $("#barcodeReturn").attr("disabled", false)) {
       $("#barcodeReturn").focus();
+    }
+  });
+
+  //mantener el focus de la huella en una devolucion
+  $("#fingerReturn").blur(function () {
+    if ($('#returns').is(':visible') && $("#fingerReturn").attr("disabled", false)) {
+      $("#fingerReturn").focus();
     }
   });
 
@@ -164,10 +174,6 @@
               storeData(dataProduct, 'product');
             });
           } else {
-            console.log(response.message)
-            if (response.message.trim == "Producto ya vendido.") {
-              $("#product").val("Producto ya vendido.");
-            }
             $("#product").val("");
             $("#subtotal").val("");
           }
@@ -217,6 +223,7 @@
     $("#login").hide();
     $("#returns").show();
     $("#barcodeReturn").focus();
+    $("#survey").hide();
   }
 
   //leer codigo de barrras de devolucion
@@ -228,21 +235,21 @@
     if (barcodeReturn != '') {
       $.ajax({
         type: "GET",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/getByBarcodeReturn/" + barcodeReturn,
+        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcodeReturn/" + barcodeReturn,
         dataType: "json",
         success: function (response) {
-          dataPurchase = response.result;
-          if (dataPurchase != null) {
-            $.each(dataPurchase, function (index, element) {
-              $("#productReturn").val(element.productName);
-              $("#owner").val(element.userName);
-              $("#datePurchased").val(element.datePurchase);
-              storeData(dataPurchase, 'purchase');
+          dataProduct = response.result;
+          if (dataProduct != null) {
+            $.each(dataProduct, function (index, element) {
+              $("#productReturn").val(element.name);
+              $("#barcodeReturn").prop("disabled", true);
+              $("#barcodeReturn").blur();
+              $("#fingerReturn").prop("disabled", false);
+              $("#fingerReturn").focus();
+              storeData(dataProduct, 'product');
             });
           } else {
             $("#productReturn").val("");
-            $("#owner").val("");
-            $("#datePurchased").val("");
           }
         },
         error: function () {
@@ -250,6 +257,38 @@
         }
       });
     }
+  }
+
+  //validando huella
+  $("#fingerReturn").on("keyup", validateReturn);
+
+  function validateReturn() {
+    var finger = $("#fingerReturn").val();
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      data: { "finger": finger },
+      dataType: "json",
+      success: function (response) {
+        dataUser = response.result;
+        if (dataUser != null) {
+          storeData(dataUser, 'user');
+          $.each(dataUser, function (index, element) {
+            $("#userReturn").val(element.name);
+            $("#fingerReturn").blur();
+            $("#returns").hide();
+            $("#survey").show();
+            $("#goReturns").hide();
+            $("#name").html("Bienvenido: " + element.name);
+          });
+        } else {
+          $("#userReturn").val("");
+        }
+      },
+      error: function () {
+        alert("Ocurrió un error inesperado.");
+      }
+    });
   }
 
   //boton salir de devoluciones
@@ -261,18 +300,22 @@
       url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
       dataType: "json",
       success: function (response) {
-        $("#barcodeReturn").blur();
-        $("#login").show();
-        $("#fingerInit").focus();
+        $("#fingerReturn").blur();
+        $("#fingerInit").val("");
+        $("#barcodeReturn").val("").toggleClass('validate valid validate');;
+        $("#productReturn").val("");
+        $("#userReturn").val("");
+        $("#fingerReturn").val("");
+        $("#name").html("");
+        $("#fingerReturn").prop("disabled", true);
+        $("#barcodeReturn").prop("disabled", false);
         $("#purchase").hide();
         $("#returns").hide();
-        $("#fingerInit").val("");
-        $("#name").html("");
+        $("#login").show();
+        $("#fingerInit").focus();
+
+
         $("#goReturns").show();
-        $("#barcodeReturn").val("");
-        $("#productReturn").val("");
-        $("#subtotalReturn").val("");
-        $("#totalReturn").val("");
         products = [];
         user = {};
         total = 0;
@@ -283,4 +326,20 @@
     });
   }
   // <!-- :::::::::::::::::::: SCRIPTS END Returns :::::::::::::::::::: -->
+
+  // <!-- :::::::::::::::::::: SCRIPTS Survey :::::::::::::::::::: -->
+
+  //boton salir de encuesta
+  $("#logoutSurvey").on("click", logoutReturn);
+
+  //ir a devoluciones
+  $("#confirmSurvey").on("click", confirmSurvey);
+
+  function confirmSurvey() {
+
+    var radioSelected = $(".surveyRadio:checked").val();
+
+  }
+
+  // <!-- :::::::::::::::::::: SCRIPTS END Survey :::::::::::::::::::: -->
 })(jQuery);

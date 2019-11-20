@@ -48,15 +48,15 @@
           <label for="barcode">CODIGO</label>
         </div>
         <div class="input-field col s6">
-          <input type="text" disabled placeholder="Producto" id="product" class="validate" />
+          <input type="text" disabled placeholder="Producto" id="product" />
           <label for="product">PRODUCTO</label>
         </div>
         <div class="input-field col s6">
-          <input type="number" disabled placeholder="Subtotal" id="subtotal" class="validate" />
+          <input type="number" disabled placeholder="Subtotal" id="subtotal" />
           <label for="subtotal">SUBTOTAL</label>
         </div>
         <div class="input-field col s6">
-          <input type="number" disabled placeholder="Total" id="total" class="validate" />
+          <input type="number" disabled placeholder="Total" id="total" />
           <label for="total">TOTAL</label>
         </div>
         <div class="input-field col s12">
@@ -74,36 +74,72 @@
 
   <!-- :::::::::::::::::::: VIEW Returns :::::::::::::::::::: -->
   <div class="section" align="center" id="returns">
-      <div class="container">
-        <div class="row">
-          <div class="input-field col s6">
-            <input type="text" placeholder="Codigo" id="barcodeReturn" class="validate" />
-            <label for="barcode">CÓDIGO</label>
-          </div>
-          <div class="input-field col s6">
-            <input type="text" disabled placeholder="Producto" id="productReturn" class="validate" />
-            <label for="product">PRODUCTO</label>
-          </div>
-          <div class="input-field col s6">
-            <input type="text" disabled placeholder="Dueño" id="owner" class="validate" />
-            <label for="owner">DUEÑO</label>
-          </div>
-          <div class="input-field col s6">
-            <input type="text" disabled placeholder="Fecha de Compra" id="datePurchased" class="validate" />
-            <label for="total">FECHA DE COMPRA</label>
-          </div>
-          <div class="input-field col s12">
-            <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutReturn">
-              SALIR
-            </button>
-            <button class="right waves-effect waves-light teal lighten-1 btn" id="buyReturn">
-              DEVOLVER
-            </button>
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" placeholder="Codigo" id="barcodeReturn" class="validate" />
+          <label for="barcode">Codigo de barras</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" disabled placeholder="Huella" id="fingerReturn" />
+          <label for="fingerReturn">Ponga su huella</label>
+        </div>
+        <div class="input-field col s12">
+          <input type="text" disabled placeholder="Producto" id="productReturn" />
+          <label for="product">Nombre del producto</label>
+        </div>
+        <div class="col s6">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutReturn">
+            SALIR
+          </button>
+        </div>
+        <div class="col s6">
+          <button class=" right waves-effect waves-light orange lighten-1 btn" id="logoutReturn">
+            LIMPIAR
+          </button>
         </div>
       </div>
     </div>
-    <!-- :::::::::::::::::::: VIEW END Returns :::::::::::::::::::: -->
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Returns :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Survey :::::::::::::::::::: -->
+  <div class="section" align="left" id="survey">
+    <div class="container">
+      <div class="row">
+        ¿Razón por la que desea devolver el producto?
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey1" checked />
+            <span>Producto en mal estado o vencido.</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey2"/>
+            <span>Quiero cambiar mi elección.</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey3"/>
+            <span>Otra.</span>
+          </label>
+        </p>
+        <div class="col s6">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutSurvey">
+            SALIR
+          </button>
+        </div>
+        <div class="col s6">
+          <button class=" right waves-effect waves-light teal lighten-1 btn" id="confirmSurvey">
+            CONFIRMAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Survey :::::::::::::::::::: -->
 
   <!--  Scripts-->
   <script src="js/jquery.min.js"></script>
