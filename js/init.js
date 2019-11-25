@@ -69,7 +69,8 @@
     console.log(user['mail']);
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/sendMail",
+      //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/sendMail",
+      url: "http://localhost/proyectos/WiediiShop-Back/public/purchase/sendMail",
       data: user,
       dataType: "json",
       success: function (response) {
@@ -93,7 +94,8 @@
     var finger = $("#fingerInit").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      url: "http://localhost/proyectos/WiediiShop-Back/public/user/login",
       data: { "finger": finger },
       dataType: "json",
       success: function (response) {
@@ -107,6 +109,7 @@
             $("#login").hide();
             $("#purchase").show();
             $("#barcode").focus();
+            $("#decrease").addClass("disabled");
           });
         }
       },
@@ -122,7 +125,8 @@
   function logout() {
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      url: "http://localhost/proyectos/WiediiShop-Back/public/user/logout",
       dataType: "json",
       success: function (response) {
         $("#barcode").blur();
@@ -137,6 +141,7 @@
         $("#product").val("");
         $("#subtotal").val("");
         $("#total").val("");
+        $("#counter").val(0);
         products = [];
         user = {};
         total = 0;
@@ -157,25 +162,30 @@
 
   function readBarcode() {
 
+    $("#decrease").addClass("disabled");
+
     var barcode = $("#barcode").val().trim();
     if (barcode != '') {
       $.ajax({
         type: "GET",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcode,
+        //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcode,
+        url: "http://localhost/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcode,
         dataType: "json",
         success: function (response) {
           dataProduct = response.result;
           if (dataProduct != null) {
             $.each(dataProduct, function (index, element) {
               $("#product").val(element.name);
+              $("#counter").val(1);
               $("#subtotal").val(element.price);
-              total = parseInt(total) + parseInt(element.price);
+              total = parseInt(total) + (parseInt(element.price));
               $("#total").val(total);
               storeData(dataProduct, 'product');
             });
           } else {
             $("#product").val("");
             $("#subtotal").val("");
+            $("#counter").val(0);
           }
         },
         error: function () {
@@ -193,7 +203,8 @@
     if (products.length > 0) {
       $.ajax({
         type: "POST",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/save",
+        //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/save",
+        url: "http://localhost/proyectos/WiediiShop-Back/public/purchase/save",
         data: { "user": user['idUser'], "products": products },
         dataType: "json",
         success: function (response) {
@@ -206,6 +217,49 @@
       $("#confirmPurchase").show();
       //sendMail();
       logout();
+    }
+  }
+
+  //incrementar en 1 el producto
+  $("#increase").on("click", increaseValue);
+
+  function increaseValue() {
+
+    $("#decrease").removeClass("disabled");
+
+    if ($("#product").val() != "") {
+      var count = parseInt($("#counter").val(), 10);
+      count = isNaN(count) ? 0 : count;
+      count++;
+      $("#counter").val(count);
+      var subtotal = parseInt($("#subtotal").val(), 10);
+      total = total - (subtotal * (count - 1)) + (subtotal * count);
+      $("#total").val(total);
+      var product = products[products.length - 1];
+      products.push(product);
+    }
+  }
+
+  //decrementar en 1 el producto
+  $("#decrease").on("click", decreaseValue);
+
+  function decreaseValue() {
+
+    if ($("#product").val() != "") {
+      var count = parseInt($("#counter").val(), 10);
+      count = isNaN(count) ? 0 : count;
+      count > 1 ? count-- : count = 1;
+      $("#counter").val(count);
+
+      if (count == 1) {
+        $("#decrease").toggleClass('disabled');
+      }
+      if (count >= 1) {
+        var subtotal = parseInt($("#subtotal").val(), 10);
+        total = total - (subtotal * (count + 1)) + (subtotal * count);
+        $("#total").val(total);
+        products.pop();
+      }
     }
   }
 
@@ -235,7 +289,8 @@
     if (barcodeReturn != '') {
       $.ajax({
         type: "GET",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcodeReturn/" + barcodeReturn,
+        //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcodeReturn/" + barcodeReturn,
+        url: "http://localhost/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcodeReturn,
         dataType: "json",
         success: function (response) {
           dataProduct = response.result;
@@ -263,11 +318,14 @@
   $("#fingerReturn").on("keyup", validateReturn);
 
   function validateReturn() {
+    console.log(products);
     var finger = $("#fingerReturn").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
-      data: { "finger": finger },
+      //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      //url: "http://localhost/proyectos/WiediiShop-Back/public/purchase/validateReturn",
+      url: "http://localhost/proyectos/WiediiShop-Back/public/user/login",
+      data: { "finger": finger, "product": products.pop()['idProducts'] },
       dataType: "json",
       success: function (response) {
         dataUser = response.result;
@@ -297,12 +355,13 @@
   function logoutReturn() {
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      //url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      url: "http://localhost/proyectos/WiediiShop-Back/public/user/logout",
       dataType: "json",
       success: function (response) {
         $("#fingerReturn").blur();
         $("#fingerInit").val("");
-        $("#barcodeReturn").val("").toggleClass('validate valid validate');;
+        $("#barcodeReturn").val("").toggleClass('validate valid validate');
         $("#productReturn").val("");
         $("#userReturn").val("");
         $("#fingerReturn").val("");

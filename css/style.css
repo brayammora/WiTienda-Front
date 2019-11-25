@@ -19,6 +19,7 @@ html {
 }
 
 /* Disminuir tamaño del nav */
+
 nav {
   height: 30px;
   line-height: 30px;
@@ -34,13 +35,28 @@ nav .button-collapse i {
   line-height: 30px;
 }
 
-nav .brand-logo { 
-  font-size: 1.6rem; 
+nav .brand-logo {
+  font-size: 1.6rem;
 }
 
-@media only screen and (min-width: 601px){
+@media only screen and (min-width: 601px) {
   nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-      height: 30px;
-      line-height: 30px;
+    height: 30px;
+    line-height: 30px;
   }
+}
+
+.input-field input[type=text]:focus+label, .materialize-textarea:focus:not([readonly])+label {
+  color: #3f51b5 !important;
+}
+
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #3f51b5 !important;
+  box-shadow: 0 1px 0 0 #3f51b5 !important;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px #9fa8da  ;
+  box-shadow: 0 1px 0 0 #9fa8da  ;
 }

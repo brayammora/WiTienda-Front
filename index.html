@@ -43,7 +43,7 @@
   <div class="section" align="center" id="purchase">
     <div class="container">
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s3">
           <input type="text" placeholder="Codigo" id="barcode" class="validate" />
           <label for="barcode">CODIGO</label>
         </div>
@@ -51,9 +51,18 @@
           <input type="text" disabled placeholder="Producto" id="product" />
           <label for="product">PRODUCTO</label>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field col s3">
           <input type="number" disabled placeholder="Subtotal" id="subtotal" />
           <label for="subtotal">SUBTOTAL</label>
+        </div>
+        <div class="input-field col s2">
+          <a class="btn-floating waves-effect indigo darken-1" id="decrease">-</a>
+        </div>
+        <div class="input-field col s2">
+          <input type="number" class="center" value="0" id="counter"/>
+        </div>
+        <div class="input-field col s2">
+          <a class="btn-floating waves-effect indigo darken-1" id="increase">+</a>
         </div>
         <div class="input-field col s6">
           <input type="number" disabled placeholder="Total" id="total" />
@@ -63,7 +72,7 @@
           <button class=" left waves-effect waves-light red lighten-1 btn" id="logout">
             SALIR
           </button>
-          <button class="right waves-effect waves-light teal lighten-1 btn" id="buy">
+          <button class="right waves-effect waves-light indigo darken-1 btn" id="buy">
             COMPRAR
           </button>
         </div>
@@ -116,13 +125,13 @@
         </p>
         <p>
           <label>
-            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey2"/>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey2" />
             <span>Quiero cambiar mi elección.</span>
           </label>
         </p>
         <p>
           <label>
-            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey3"/>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey3" />
             <span>Otra.</span>
           </label>
         </p>
