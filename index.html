@@ -59,7 +59,7 @@
           <a class="btn-floating waves-effect indigo darken-1" id="decrease">-</a>
         </div>
         <div class="input-field col s2">
-          <input type="number" class="center" value="0" id="counter"/>
+          <input type="number" class="center" value="0" id="counter" />
         </div>
         <div class="input-field col s2">
           <a class="btn-floating waves-effect indigo darken-1" id="increase">+</a>
@@ -85,32 +85,54 @@
   <div class="section" align="center" id="returns">
     <div class="container">
       <div class="row">
-        <div class="input-field col s6">
-          <input type="text" placeholder="Codigo" id="barcodeReturn" class="validate" />
-          <label for="barcode">Codigo de barras</label>
-        </div>
-        <div class="input-field col s6">
-          <input type="text" disabled placeholder="Huella" id="fingerReturn" />
+        <br><br>
+        <div class="input-field col s6 offset-s3" align="center">
+          <input type="text" placeholder="Huella" id="fingerReturn" />
           <label for="fingerReturn">Ponga su huella</label>
         </div>
-        <div class="input-field col s12">
-          <input type="text" disabled placeholder="Producto" id="productReturn" />
-          <label for="product">Nombre del producto</label>
-        </div>
-        <div class="col s6">
+        <div class="col s12" style="margin-top: 11vw;">
           <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutReturn">
             SALIR
-          </button>
-        </div>
-        <div class="col s6">
-          <button class=" right waves-effect waves-light orange lighten-1 btn" id="logoutReturn">
-            LIMPIAR
           </button>
         </div>
       </div>
     </div>
   </div>
   <!-- :::::::::::::::::::: VIEW END Returns :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Table returns :::::::::::::::::::: -->
+  <div class="section" align="center" id="tableReturns">
+    <div class="container">
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="col s12">
+          <table id="productList" cellpadding="1" cellspacing="1" class="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col s12 center text-center" style="margin-top: 5px; margin-bottom: 5px;">
+        <span class="left" id="total_reg"></span>
+        <ul class="pagination pager" id="myPager"></ul>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutTableReturn">
+            SALIR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Table returns :::::::::::::::::::: -->
 
   <!-- :::::::::::::::::::: VIEW Survey :::::::::::::::::::: -->
   <div class="section" align="left" id="survey">
@@ -136,8 +158,8 @@
           </label>
         </p>
         <div class="col s6">
-          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutSurvey">
-            SALIR
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="backTableReturns">
+            VOLVER
           </button>
         </div>
         <div class="col s6">
@@ -153,6 +175,7 @@
   <!--  Scripts-->
   <script src="js/jquery.min.js"></script>
   <script src="js/materialize.min.js"></script>
+  <script src="js/pagination.js"></script>
   <script src="js/init.js"></script>
 </body>
 

@@ -60,3 +60,11 @@ nav .brand-logo {
   border-bottom: 1px #9fa8da  ;
   box-shadow: 0 1px 0 0 #9fa8da  ;
 }
+
+td, th {
+  padding: 5px 5px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px;
+}
