@@ -31,6 +31,7 @@
   var user = {};
   var total = 0;
   var idPurchaseReturn = null;
+  var server = "http://localhost:8888/proyectos/WiediiShop-Back/public/";
 
   // <!-- :::::::::::::::::::: SCRIPTS General :::::::::::::::::::: -->
 
@@ -60,19 +61,17 @@
   }
 
   //enviar email
-  function sendMail() {
-    console.log(user['mail']);
+  function sendMail(intermediario) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/sendMail",
+      url: server + intermediario + "/sendMail",
       data: user,
       dataType: "json",
       success: function (response) {
-        console.log(response);
+        //console.log(response);
       },
       error: function () {
-        console.log("Send Mail Error");
-        //alert("An unexpected error occurred.");
+        //console.log("Send Mail Error");
       }
     });
   }
@@ -88,7 +87,7 @@
     var finger = $("#fingerInit").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      url: server + "user/login",
       data: { "finger": finger },
       dataType: "json",
       success: function (response) {
@@ -118,7 +117,7 @@
   function logout() {
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      url: server + "user/logout",
       dataType: "json",
       success: function (response) {
         $("#barcode").blur();
@@ -161,7 +160,7 @@
     if (barcode != '') {
       $.ajax({
         type: "GET",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/product/getByBarcode/" + barcode,
+        url: server + "product/getByBarcode/" + barcode,
         dataType: "json",
         success: function (response) {
           dataProduct = response.result;
@@ -195,7 +194,7 @@
     if (products.length > 0) {
       $.ajax({
         type: "POST",
-        url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/save",
+        url: server + "purchase/save",
         data: { "user": user['idUser'], "products": products },
         dataType: "json",
         success: function (response) {
@@ -206,7 +205,7 @@
         }
       });
       $("#confirmPurchase").show();
-      //sendMail();
+      sendMail("purchase");
       logout();
     }
   }
@@ -216,9 +215,9 @@
 
   function increaseValue() {
 
-    $("#decrease").removeClass("disabled");
-
     if ($("#product").val() != "") {
+
+      $("#decrease").removeClass("disabled");
       var count = parseInt($("#counter").val(), 10);
       count = isNaN(count) ? 0 : count;
       count++;
@@ -280,7 +279,7 @@
     var finger = $("#fingerReturn").val();
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/login",
+      url: server + "user/login",
       data: { "finger": finger },
       dataType: "json",
       success: function (response) {
@@ -302,18 +301,18 @@
 
             $.ajax({
               type: "GET",
-              url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/validateReturn/" + a,
+              url: server + "purchase/validateReturn/" + a,
               dataType: "json",
               success: function (response) {
                 dataProduct = response.result
                 if (dataProduct != null) {
                   $.each(dataProduct, function (i, elem) {
-                    table.append("<tr><td>" + elem.datePurchase + "</td><td>" + elem.name + "</td><td>$ " + elem.price +
+                    table.append("<tr><td>" + elem.datePurchase + "</td><td>" + elem.name + "</td><td>$" + elem.price +
                       "</td><td class='center'><button class='waves-effect waves-light red btn-small'" +
                       "value='" + elem.idPurchase + "'> X </button></td></tr>");
                   });
                 } else {
-                  table.append("<tr><td colspan='3'>No hay compras registradas.</td></tr>");
+                  table.append("<tr><td colspan='4'>No hay compras registradas.</td></tr>");
                 }
                 $('#productList').pageMe({
                   pagerSelector: '#myPager',
@@ -325,7 +324,6 @@
               }
             });
           });
-
         } else {
           $("#userReturn").val("");
         }
@@ -343,7 +341,7 @@
   function logoutReturn() {
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/user/logout",
+      url: server + "user/logout",
       dataType: "json",
       success: function (response) {
         $("#fingerReturn").blur();
@@ -407,7 +405,7 @@
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:8888/proyectos/WiediiShop-Back/public/return/save",
+      url: server + "return/save",
       data: { "reason": radioSelected, "idPurchase": idPurchaseReturn },
       dataType: "json",
       success: function (responseSave) {
@@ -415,19 +413,21 @@
 
         $.ajax({
           type: "GET",
-          url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/get/" + idPurchaseReturn,
+          url: server + "purchase/get/" + idPurchaseReturn,
           dataType: "json",
           success: function (responseGetPurchase) {
-            purchase = { "datePayment": null,
-              "datePurchase": "2019-11-25",
-              "idProduct": "1",
-              "idPurchase": "47",
-              "idUser": "1",
-              "state": "DEVUELTO" } ;
-
+            result = responseGetPurchase.result;
+            purchase = {
+              "datePayment": result[0].datePayment,
+              "datePurchase": result[0].datePurchase,
+              "idProduct": result[0].idProduct,
+              "idPurchase": result[0].idPurchase,
+              "idUser": result[0].idUser,
+              "state": "DEVUELTO"
+            };
             $.ajax({
               type: "POST",
-              url: "http://localhost:8888/proyectos/WiediiShop-Back/public/purchase/save",
+              url: server + "purchase/save",
               data: purchase,
               dataType: "json",
               success: function (response) {
@@ -440,7 +440,7 @@
         alert("Ocurrió un error inesperado.");
       }
     });
-    //sendMail();
+    //sendMail("purchase");
     logoutReturn();
   }
 
