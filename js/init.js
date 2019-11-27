@@ -27,11 +27,11 @@
     }
   });
 
+  var server = "http://localhost:8888/proyectos/WiediiShop-Back/public/";
   var products = [];
   var user = {};
   var total = 0;
   var idPurchaseReturn = null;
-  var server = "http://localhost:8888/proyectos/WiediiShop-Back/public/";
 
   // <!-- :::::::::::::::::::: SCRIPTS General :::::::::::::::::::: -->
 
@@ -61,7 +61,7 @@
   }
 
   //enviar email
-  function sendMail(intermediario) {
+  function sendMail(intermediario, data) {
     $.ajax({
       type: "POST",
       url: server + intermediario + "/sendMail",
@@ -205,7 +205,7 @@
         }
       });
       $("#confirmPurchase").show();
-      sendMail("purchase");
+      sendMail("purchase", null);
       logout();
     }
   }
@@ -344,6 +344,7 @@
       url: server + "user/logout",
       dataType: "json",
       success: function (response) {
+        $('input:radio[name="surveyRadio"][value="survey1"]').prop('checked', true);
         $("#fingerReturn").blur();
         $("#fingerInit").val("");
         $("#userReturn").val("");
@@ -403,10 +404,24 @@
 
     var radioSelected = $(".surveyRadio:checked").val();
 
+    var reason = "";
+    switch (radioSelected) {
+      case "survey1":
+        reason = "Producto en mal estado o vencido.";
+        break;
+      case "survey2":
+        reason = "Quiero cambiar mi elección.";
+        break;
+      case "survey3":
+        reason = "Otra.";
+        break;
+    }
+
+    var purchase = null;
     $.ajax({
       type: "POST",
-      url: server + "return/save",
-      data: { "reason": radioSelected, "idPurchase": idPurchaseReturn },
+      url: server + "returns/save",
+      data: { "reason": reason, "idPurchase": idPurchaseReturn },
       dataType: "json",
       success: function (responseSave) {
         M.toast({ html: responseSave.message, classes: 'center' })
@@ -418,7 +433,7 @@
           success: function (responseGetPurchase) {
             result = responseGetPurchase.result;
             purchase = {
-              "datePayment": result[0].datePayment,
+              "datePayment": result[0] == null ? null : result[0].datePayment,
               "datePurchase": result[0].datePurchase,
               "idProduct": result[0].idProduct,
               "idPurchase": result[0].idPurchase,
@@ -440,7 +455,7 @@
         alert("Ocurrió un error inesperado.");
       }
     });
-    //sendMail("return");
+    sendMail("returns", purchase);
     logoutReturn();
   }
 
