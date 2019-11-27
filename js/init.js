@@ -440,7 +440,7 @@
         alert("Ocurrió un error inesperado.");
       }
     });
-    //sendMail("purchase");
+    //sendMail("return");
     logoutReturn();
   }
 
