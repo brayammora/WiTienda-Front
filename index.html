@@ -2,55 +2,181 @@
 <html lang="es">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Wiedii Tienda</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <title>Wiedii Tienda</title>
 
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <!-- CSS  -->
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
 </head>
 
-<body class="full-height">
-    <nav class="indigo darken-3" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo ">Tienda APP</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Enviar reporte de compras</a></li>
-            </ul>
+<body class="full-tam grey lighten-4">
 
-            <ul id="nav-mobile" class="sidenav sidenav-fixed">
-                <li>
-                    <a class="waves-effect" href="#"> <i class="material-icons">email</i> Enviar reporte de compras</a>
-                </li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
-    <div class="section grey lighten-4" align="center">
-        <div class="container">
-            <div class="row">
-                <img src="images/logo.svg" width="50%" height="50%">
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="input-field inline">
-                        <input type="text" placeholder="Huella dactilar" id="huella">
-                        <label for="huella">Ponga su huella:</label>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <a href="index.html" class="waves-effect waves-light blue lighten-1 btn"> Comprar </a>
-                </div>
-            </div>
-        </div>
+  <nav>
+    <div class="nav-wrapper indigo darken-3" style="text-align: center;">
+      <a href="#" class="right brand-logo" id="logo">Wiedii Tienda</a>
+      <ul id="nav-mobile" class="left">
+        <li><a href="#" class="waves-effect" id="goReturns">Devoluciones</a></li>
+        <li class="flow-text"><a href="#" class="waves-effect" id="name"></a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
+  <!-- :::::::::::::::::::: VIEW Login :::::::::::::::::::: -->
+  <div class="section" align="center" id="login">
+    <div class="container col s12">
+      <div class="row">
+        <img src="images/logo.svg" width="60%" height="60%" />
+        <br><br>
+        <div class="input-field inline">
+          <input type="text" placeholder="Huella" id="fingerInit" />
+          <label for="fingerInit">¡A COMPRAR!</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Login :::::::::::::::::::: -->
 
+  <!-- :::::::::::::::::::: VIEW Purchase :::::::::::::::::::: -->
+  <div class="section" align="center" id="purchase">
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s3">
+          <input type="text" placeholder="Codigo" id="barcode" class="validate" />
+          <label for="barcode">CODIGO</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" disabled placeholder="Producto" id="product" />
+          <label for="product">PRODUCTO</label>
+        </div>
+        <div class="input-field col s3">
+          <input type="number" disabled placeholder="Subtotal" id="subtotal" />
+          <label for="subtotal">SUBTOTAL</label>
+        </div>
+        <div class="input-field col s2">
+          <a class="btn-floating waves-effect indigo darken-1" id="decrease">-</a>
+        </div>
+        <div class="input-field col s2">
+          <input type="number" class="center" value="0" id="counter" />
+        </div>
+        <div class="input-field col s2">
+          <a class="btn-floating waves-effect indigo darken-1" id="increase">+</a>
+        </div>
+        <div class="input-field col s6">
+          <input type="number" disabled placeholder="Total" id="total" />
+          <label for="total">TOTAL</label>
+        </div>
+        <div class="input-field col s12">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logout">
+            SALIR
+          </button>
+          <button class="right waves-effect waves-light teal btn" id="buy">
+            COMPRAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Purchase :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Returns :::::::::::::::::::: -->
+  <div class="section" align="center" id="returns">
+    <div class="container">
+      <div class="row">
+        <br><br>
+        <div class="input-field col s6 offset-s3" align="center">
+          <input type="text" placeholder="Huella" id="fingerReturn" />
+          <label for="fingerReturn">Ponga su huella</label>
+        </div>
+        <div class="col s12" style="margin-top: 11vw;">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutReturn">
+            SALIR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Returns :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Table returns :::::::::::::::::::: -->
+  <div class="section" align="center" id="tableReturns">
+    <div class="container">
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="col s12">
+          <table id="productList" cellpadding="1" cellspacing="1" class="table">
+            <thead>
+              <tr>
+                <th width="30%">Fecha</th>
+                <th width="40%">Nombre</th>
+                <th width="20%">Precio</th>
+                <th width="10%">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col s12 center text-center">
+        <span class="left" id="total_reg"></span>
+        <ul class="pagination pager" id="myPager" style="margin-top: 5px; margin-bottom: 5px;"></ul>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutTableReturn">
+            SALIR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Table returns :::::::::::::::::::: -->
+
+  <!-- :::::::::::::::::::: VIEW Survey :::::::::::::::::::: -->
+  <div class="section" align="left" id="survey">
+    <div class="container">
+      <div class="row">
+        ¿Razón por la que desea devolver el producto?
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey1" checked />
+            <span>Producto en mal estado o vencido.</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey2" />
+            <span>Quiero cambiar mi elección.</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap surveyRadio" name="surveyRadio" type="radio" value="survey3" />
+            <span>Otra.</span>
+          </label>
+        </p>
+        <div class="col s6">
+          <button class=" left waves-effect waves-light red lighten-1 btn" id="backTableReturns">
+            VOLVER
+          </button>
+        </div>
+        <div class="col s6">
+          <button class=" right waves-effect waves-light teal lighten-1 btn" id="confirmSurvey">
+            CONFIRMAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- :::::::::::::::::::: VIEW END Survey :::::::::::::::::::: -->
+
+  <!--  Scripts-->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script src="js/pagination.js"></script>
+  <script src="js/init.js"></script>
 </body>
 
 </html>

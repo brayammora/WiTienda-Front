@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <title>Wiedii Tienda</title>
+
+  <!-- CSS  -->
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="css/style_admin.css" type="text/css" rel="stylesheet" media="screen" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="indigo darken-3">
+  <div class="section" align="center" id="login-page" style="margin-top: 20vh;">
+    <div class="container col s12 card" style="width: 30%; padding-left: 3%; padding-right: 3%; padding-top: 3%;">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix" style="color: #3f51b5;">mail_outline</i>
+          <input class="validate" id="email" type="email">
+          <label for="email" data-error="wrong" data-success="right">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix" style="color: #3f51b5;">lock_outline</i>
+          <input id="password" type="password">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 offset-s3" style="width: 50%;">
+          <button class="btn waves-effect waves-light col s12 indigo darken-1" id=buttonLogin>Login</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6 m6 l6">
+          <p class="margin left-align medium-small"><a href="#" style="color: #3f51b5;">Forgot password?</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" align="center" id="main-page" style="padding-top: 0%;">
+    <nav>
+      <div class="nav-wrapper indigo darken-3">
+        <a id="logo-container" href="#" class="center brand-logo">Wiedii Tienda Admin</a>
+        <ul class="right hide-on-med-and-down">
+          <li class="tab"><a href="#" id="buttonProducts">Productos</a></li>
+          <li class="tab"><a href="#" id="buttonUsers">Usuarios</a></li>
+          <li class="tab"><a href="#" id="buttonPurchases">Compras</a></li>
+          <li class="tab"><a href="#" id="buttonReturns">Devoluciones</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+            <li class="tab"><a href="#" id="buttonProducts">Productos</a></li>
+            <li class="tab"><a href="#" id="buttonUsers">Usuarios</a></li>
+            <li class="tab"><a href="#" id="buttonPurchases">Compras</a></li>
+            <li class="tab"><a href="#" id="buttonReturns">Devoluciones</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+
+    <div class="section" align="center" id="products">
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <b>PRODUCTOS</b>
+            <table id="productList" cellpadding="1" cellspacing="1" class="table">
+              <thead>
+                <tr class='center'>
+                  <th width="30%">Codigo de barras</th>
+                  <th width="30%">Nombre</th>
+                  <th width="20%">Precio</th>
+                  <th width="20%">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col s12 center text-center">
+          <span class="left" id="total_reg"></span>
+          <ul class="pagination pager" id="myPager" style="margin-top: 5px; margin-bottom: 5px;"></ul>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button class=" left waves-effect waves-light red lighten-1 btn" id="logoutTableReturn">
+              SALIR
+            </button>
+            <button class=" right waves-effect waves-light teal btn" id="logoutTableReturn">
+              AGREGAR NUEVO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+<!--  Scripts-->
+<script src="js/jquery.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="js/pagination.js"></script>
+<script src="js/admin.js"></script>
+</body>
+
+</html>
